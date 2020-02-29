@@ -1,48 +1,58 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Ionicons } from '@expo/vector-icons';
+import FavPokemon from './components/FavPokemon';
+import PokemonList from './components/PokemonList';
+import NativeModule from './components/NativeModule';
+
+const Stack = createStackNavigator();
+const TabNav = createBottomTabNavigator();
 
 export default function App() {
-  const [vulpix, setVulpix] = useState(null);
-  const [loading, setLoading] = useState(true);
+  return (
+    <NavigationContainer>
+      <TabNav.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
 
-  const getVulpix = async () => {
-    try {
-      const res = await fetch('https://pokeapi.co/api/v2/pokemon/37');
-      const data = await res.json();
-
-      setVulpix(data);
-      setLoading(false);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    getVulpix();
-    //eslint-disable-next-line
-  }, []);
-
-  if (loading) {
-    return (
-      <View style={styles.container}>
-        <Text>Loading...</Text>
-      </View>
-    );
-  } else {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.header}>This is {vulpix.name}!</Text>
-        <Image
-          style={styles.image}
-          source={{ uri: vulpix.sprites.front_default }}
+            if (route.name === 'FavPokemon') {
+              iconName = 'md-heart';
+            } else if (route.name === 'PokemonList') {
+              iconName = 'md-paw';
+            } else if ((route.name = 'NativeModule')) {
+              iconName = 'md-cafe';
+            }
+            return <Ionicons name={iconName} size={size} color={color} />;
+          }
+        })}
+        tabBarOptions={{
+          activeTintColor: '#59B6AE',
+          inactiveTintColor: 'gray'
+        }}
+      >
+        <TabNav.Screen name='FavPokemon' component={FavPokemon} />
+        <TabNav.Screen name='PokemonList' component={PokemonList} />
+        <TabNav.Screen name='NativeModule' component={NativeModule} />
+      </TabNav.Navigator>
+      {/* <Stack.Navigator initialRouteName='FavPokemon'>
+        <Stack.Screen
+          name='FavPokemon'
+          component={FavPokemon}
+          options={{ title: 'My Favourite Pokemon' }}
         />
-        <Text>{vulpix.types.map(type => type['type']['name'])}</Text>
-        <Text>Weight: {vulpix.weight}</Text>
-        <Text>Height: {vulpix.height}</Text>
-        <Text>Base experience: {vulpix.base_experience}</Text>
-      </View>
-    );
-  }
+        <Stack.Screen
+          name='PokemonList'
+          component={PokemonList}
+          options={{ title: 'List Of Pokemons' }}
+        />
+        <Stack.Screen name='NativeModule' component={NativeModule} />
+      </Stack.Navigator> */}
+    </NavigationContainer>
+  );
 }
 
 const styles = StyleSheet.create({
