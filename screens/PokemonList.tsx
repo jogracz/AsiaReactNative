@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 
-const PokemonList = ({ navigation }) => {
+export default function PokemonList({ navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Pokemon List</Text>
@@ -11,7 +11,7 @@ const PokemonList = ({ navigation }) => {
       /> */}
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -26,5 +26,3 @@ const styles = StyleSheet.create({
     color: 'white'
   }
 });
-
-export default PokemonList;

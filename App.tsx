@@ -1,14 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import FavPokemon from './screens/FavPokemon';
 import PokemonList from './screens/PokemonList';
 import NativeModule from './screens/NativeModule';
 
-const Stack = createStackNavigator();
 const TabNav = createBottomTabNavigator();
 
 export default function App() {
@@ -53,19 +50,6 @@ export default function App() {
           component={NativeModule}
         />
       </TabNav.Navigator>
-      {/* <Stack.Navigator initialRouteName='FavPokemon'>
-        <Stack.Screen
-          name={TabScreenNames.FAV_POKEMON}
-          component={FavPokemon}
-          options={{ title: 'My Favourite Pokemon' }}
-        />
-        <Stack.Screen
-          name={TabScreenNames.POKEMON_LIST}
-          component={PokemonList}
-          options={{ title: 'List Of Pokemons' }}
-        />
-        <Stack.Screen name={TabScreenNames.NATIVE_MODULE} component={NativeModule} />
-      </Stack.Navigator> */}
     </NavigationContainer>
   );
 }

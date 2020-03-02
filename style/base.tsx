@@ -20,7 +20,12 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   propCard: {
-    width: 160
+    width: 180,
+    marginBottom: 20
+  },
+  regularButton: {
+    width: 160,
+    backgroundColor: 'lightgrey'
   }
 });
 

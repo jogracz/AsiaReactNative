@@ -1,52 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Image, Button } from 'react-native';
-import getFavPokemon from '../api/pokemon';
-import styles from '../style/base';
-import PropRow from '../components/PropRow';
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import FavMain from './FavMain';
+import FavMoreInfo from './FavMoreInfo';
 
-const FavPokemon = ({ navigation }) => {
-  const [favPokemon, setFavPokemon] = useState(null);
-  const [loading, setLoading] = useState(true);
+const Stack = createStackNavigator();
 
-  useEffect(() => {
-    async function effect() {
-      const pokemon = await getFavPokemon('vulpix');
-      setFavPokemon(pokemon);
-      setLoading(false);
-    }
-    effect();
-  }, []);
+enum StackScreenNames {
+  FAV_MAIN = 'FavMain',
+  FAV_MORE_INFO = 'FavMoreInfo'
+}
 
-  if (loading) {
-    return (
-      <View style={styles.container}>
-        <Text>Loading...</Text>
-      </View>
-    );
-  } else {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.header}>This is {favPokemon.name}!</Text>
-        <Image
-          style={styles.image}
-          source={{ uri: favPokemon.sprites.front_default }}
-        />
-        <View style={styles.propCard}>
-          <PropRow
-            left='Type:'
-            right={favPokemon.types.map(type => type['type']['name'])}
-          />
-          <PropRow left='Weight:' right={favPokemon.weight} />
-          <PropRow left='Height:' right={favPokemon.height} />
-          <PropRow left='Base experience:' right={favPokemon.base_experience} />
-        </View>
-        {/* <Button
-          title='Go to Pokemon List'
-          onPress={() => navigation.navigate('PokemonList')}
-        /> */}
-      </View>
-    );
-  }
-};
-
-export default FavPokemon;
+export default function FavPokemon() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name={StackScreenNames.FAV_MAIN}
+        component={FavMain}
+        options={{ title: 'My Favourite Pokemon' }}
+      />
+      <Stack.Screen
+        name={StackScreenNames.FAV_MORE_INFO}
+        component={FavMoreInfo}
+        options={{ title: 'More Info' }}
+      />
+    </Stack.Navigator>
+  );
+}
