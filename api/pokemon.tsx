@@ -7,6 +7,7 @@ export default async function getFavPokemon(favPokemonName) {
     return pokemon;
   } catch (error) {
     console.error(error);
+    return null;
   }
 }
 

@@ -27,9 +27,9 @@ export default function App() {
 
             if (route.name === TabScreenNames.FAV_POKEMON) {
               iconName = 'md-heart';
-            } else if (route.name === 'PokemonList') {
+            } else if (route.name === TabScreenNames.POKEMON_LIST) {
               iconName = 'md-paw';
-            } else if ((route.name = 'NativeModule')) {
+            } else if ((route.name = TabScreenNames.NATIVE_MODULE)) {
               iconName = 'md-cafe';
             }
             return <Ionicons name={iconName} size={size} color={color} />;

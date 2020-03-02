@@ -21,15 +21,6 @@ const styles = StyleSheet.create({
   },
   propCard: {
     width: 160
-  },
-  properties: {
-    color: 'white',
-    fontSize: 16
-  },
-  propRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between'
   }
 });
 
