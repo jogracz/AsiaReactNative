@@ -1,3 +1,11 @@
+interface Pokemon {
+  name: string;
+  weight: number;
+  height: number;
+  base_experience: number;
+  sprites: [object];
+}
+
 export default async function getFavPokemon(favPokemonName) {
   try {
     const res = await fetch(
@@ -11,10 +19,13 @@ export default async function getFavPokemon(favPokemonName) {
   }
 }
 
-interface Pokemon {
-  name: string;
-  weight: number;
-  height: number;
-  base_experience: number;
-  sprites: [object];
+export async function getAllPokemons() {
+  try {
+    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/`);
+    const allPokemons = await res.json();
+    return allPokemons;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 }
