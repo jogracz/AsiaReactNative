@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
-import FavPokemon from './screens/FavPokemon';
+import FavPokemonStack from './stacks/FavPokemonStack';
 import PokemonList from './screens/PokemonList';
 import NativeModule from './screens/NativeModule';
 
@@ -10,7 +10,7 @@ const TabNav = createBottomTabNavigator();
 
 export default function App() {
   enum TabScreenNames {
-    FAV_POKEMON = 'FavPokemon',
+    FAV_POKEMON = 'FavPokemonStack',
     POKEMON_LIST = 'PokemonList',
     NATIVE_MODULE = 'NativeModule'
   }
@@ -39,7 +39,7 @@ export default function App() {
       >
         <TabNav.Screen
           name={TabScreenNames.FAV_POKEMON}
-          component={FavPokemon}
+          component={FavPokemonStack}
         />
         <TabNav.Screen
           name={TabScreenNames.POKEMON_LIST}
