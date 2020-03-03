@@ -19,11 +19,13 @@ export default async function getFavPokemon(favPokemonName) {
   }
 }
 
-export async function getAllPokemons() {
+export async function getAllPokemons(offset, limit) {
   try {
-    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/`);
-    const allPokemons = await res.json();
-    return allPokemons;
+    const res = await fetch(
+      `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`
+    );
+    const data = await res.json();
+    return data.results;
   } catch (error) {
     console.error(error);
     return null;

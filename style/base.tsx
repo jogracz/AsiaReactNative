@@ -15,12 +15,16 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   header: {
+    marginTop: 140,
     fontSize: 25,
     fontWeight: '700',
     color: 'white'
   },
   propCard: {
     width: 160
+  },
+  pokeListElement: {
+    marginTop: 20
   }
 });
 
