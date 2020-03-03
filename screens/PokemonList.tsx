@@ -20,11 +20,18 @@ const PokemonList = () => {
     effect();
   }, []);
 
-  const renderItem = ({ item, index }) => (
-    <Text style={styles.header}>
-      {index + 1}. {item.name}
-    </Text>
-  );
+  const renderItem = ({ item }) => {
+    //const matchRes = item.url.match('(pokemon\\/{1}(\\d+)\\/{1})', 'gi');
+
+    // this is more readable than regex
+    const urlChopped = item.url.split('/');
+    const id = urlChopped[urlChopped.length - 2];
+    return (
+      <Text style={styles.header}>
+        {id}. {item.name}
+      </Text>
+    );
+  };
 
   const scrolledCloseToEnd = ({
     layoutMeasurement,
@@ -45,7 +52,7 @@ const PokemonList = () => {
   if (loading) {
     return (
       <View style={styles.container}>
-        <Text>Loading...</Text>
+        <Text style={styles.pokemonListElement}>Loading...</Text>
       </View>
     );
   } else {
@@ -78,12 +85,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   },
   header: {
+    marginTop: 50,
     fontSize: 25,
     fontWeight: '700',
     color: 'white'
   },
   list: {
     width: '100%'
+  },
+  pokemonListElement: {
+    marginTop: 30
   }
 });
 
