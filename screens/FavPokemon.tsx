@@ -3,9 +3,10 @@ import { StyleSheet, Text, View, Image, Button } from 'react-native';
 import getFavPokemon from '../api/pokemon';
 import styles from '../style/base';
 import PropRow from '../components/PropRow';
+import { Pokemon } from '../api/pokemon';
 
 export default function FavPokemon({ navigation }) {
-  const [favPokemon, setFavPokemon] = useState(null);
+  const [favPokemon, setFavPokemon] = useState<Pokemon | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -21,7 +22,7 @@ export default function FavPokemon({ navigation }) {
     navigation.navigate('FavMoreInfo', { favPokemon });
   }, [favPokemon, navigation]);
 
-  if (loading) {
+  if (loading || !favPokemon) {
     return (
       <View style={styles.container}>
         <Text>Loading...</Text>

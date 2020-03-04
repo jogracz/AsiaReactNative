@@ -1,10 +1,11 @@
 export interface Pokemon {
   name: string;
-  weight: number;
-  height: number;
-  base_experience: number;
-  sprites: [object];
+  weight: string;
+  height: string;
+  base_experience: string;
+  sprites: [{ front_default: string; front_shiny: string }];
   url: string;
+  types: [{ type: { name: string } }];
 }
 
 export default async function getFavPokemon(favPokemonName: string) {
