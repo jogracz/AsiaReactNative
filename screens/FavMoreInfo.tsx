@@ -4,7 +4,11 @@ import styles from '../style/base';
 import PropRow from '../components/PropRow';
 import { Pokemon } from '../api/pokemon';
 
-export default function FavMoreInfo({ route }) {
+interface Props {
+  route: { params: { favPokemon: Pokemon } };
+}
+
+export default function FavMoreInfo({ route }: Props) {
   const { favPokemon }: { favPokemon: Pokemon } = route.params;
   const abilities = favPokemon.abilities.filter(a => !a['is_hidden']);
 

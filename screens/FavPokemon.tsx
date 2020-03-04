@@ -5,7 +5,11 @@ import styles from '../style/base';
 import PropRow from '../components/PropRow';
 import { Pokemon } from '../api/pokemon';
 
-export default function FavPokemon({ navigation }) {
+interface Props {
+  navigation: { navigate(where: string, prop: {}): {} };
+}
+
+export default function FavPokemon({ navigation }: Props) {
   const [favPokemon, setFavPokemon] = useState<Pokemon | null>(null);
   const [loading, setLoading] = useState(true);
 
