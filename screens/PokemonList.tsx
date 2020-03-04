@@ -1,28 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, FlatList, Dimensions } from 'react-native';
 import { getAllPokemons } from '../api/pokemon';
+import { Pokemon } from '../api/pokemon';
 
 const keyExtractor = ({ name }: { name: string }): string => name;
 
 export default function PokemonList() {
-  interface Pokemon {
-    name: string;
-    weight: number;
-    height: number;
-    base_experience: number;
-    sprites: [object];
-    url: string;
-  }
-
   const step = 20;
   const [batchStart, setBatchStart] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [pokemons, setPokemons] = useState([]);
+  const [pokemons, setPokemons] = useState<ReadonlyArray<Pokemon>>([]);
 
   useEffect(() => {
     const effect = async () => {
       const allPokemons = await getAllPokemons(batchStart, step);
-      setPokemons([...allPokemons]);
+      setPokemons([...(allPokemons ?? [])]);
       setLoading(false);
       if (allPokemons) setBatchStart(batchStart + step);
     };

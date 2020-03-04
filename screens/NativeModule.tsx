@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 
-export default function NativeModule({ navigation }) {
+export default function NativeModule() {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Native Module</Text>

@@ -3,9 +3,14 @@ import { StyleSheet, Text, View, Image, Button } from 'react-native';
 import getFavPokemon from '../api/pokemon';
 import styles from '../style/base';
 import PropRow from '../components/PropRow';
+import { Pokemon } from '../api/pokemon';
 
-export default function FavPokemon({ navigation }) {
-  const [favPokemon, setFavPokemon] = useState(null);
+interface Props {
+  navigation: { navigate(where: string, prop: {}): {} };
+}
+
+export default function FavPokemon({ navigation }: Props) {
+  const [favPokemon, setFavPokemon] = useState<Pokemon | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -21,13 +26,14 @@ export default function FavPokemon({ navigation }) {
     navigation.navigate('FavMoreInfo', { favPokemon });
   }, [favPokemon, navigation]);
 
-  if (loading) {
+  if (loading || !favPokemon) {
     return (
       <View style={styles.container}>
         <Text>Loading...</Text>
       </View>
     );
   } else {
+    const types = [...favPokemon.types];
     return (
       <View style={styles.container}>
         <Text style={styles.header}>This is {favPokemon.name}!</Text>
@@ -38,7 +44,7 @@ export default function FavPokemon({ navigation }) {
         <View style={styles.propCard}>
           <PropRow
             left='Type:'
-            right={favPokemon.types.map(type => type['type']['name'])}
+            right={types.map(t => t.type.name).join(', ')}
           />
           <PropRow left='Weight:' right={favPokemon.weight} />
           <PropRow left='Height:' right={favPokemon.height} />

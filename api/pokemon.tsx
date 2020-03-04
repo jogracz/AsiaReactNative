@@ -1,10 +1,17 @@
-interface Pokemon {
+export interface Pokemon {
   name: string;
-  weight: number;
-  height: number;
-  base_experience: number;
-  sprites: [object];
+  weight: string;
+  height: string;
+  base_experience: string;
+  sprites: {
+    front_default: string;
+    front_shiny: string;
+    back_shiny: string;
+  };
   url: string;
+  types: ReadonlyArray<{ type: { name: string } }>;
+  abilities: ReadonlyArray<{ is_hidden: boolean; ability: { name: string } }>;
+  moves: ReadonlyArray<{ move: { name: string } }>;
 }
 
 export default async function getFavPokemon(favPokemonName: string) {
