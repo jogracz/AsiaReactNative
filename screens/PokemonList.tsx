@@ -4,7 +4,7 @@ import { getAllPokemons } from '../api/pokemon';
 
 const keyExtractor = ({ name }: { name: string }): string => name;
 
-const PokemonList = () => {
+export default function PokemonList() {
   interface Pokemon {
     name: string;
     weight: number;
@@ -77,7 +77,7 @@ const PokemonList = () => {
       </View>
     );
   }
-};
+}
 
 const styles = StyleSheet.create({
   container: {
