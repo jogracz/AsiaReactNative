@@ -10,7 +10,7 @@ interface Props {
 
 export default function FavMoreInfo({ route }: Props) {
   const { favPokemon }: { favPokemon: Pokemon } = route.params;
-  const abilities = favPokemon.abilities.filter(a => !a['is_hidden']);
+  const abilities = favPokemon.abilities.filter(a => !a.is_hidden);
 
   return (
     <View style={styles.container}>
@@ -27,10 +27,10 @@ export default function FavMoreInfo({ route }: Props) {
         />
       </View>
       <View style={styles.propCard}>
-        <PropRow left='Move:' right={favPokemon.moves[0]['move']['name']} />
+        <PropRow left='Move:' right={favPokemon.moves[0].move.name} />
         <PropRow
           left='Abilities:'
-          right={abilities.map(a => a['ability']['name']).join(', ')}
+          right={abilities.map(a => a.ability.name).join(', ')}
         />
       </View>
     </View>
