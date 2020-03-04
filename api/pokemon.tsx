@@ -4,9 +4,12 @@ interface Pokemon {
   height: number;
   base_experience: number;
   sprites: [object];
+  url: string;
 }
 
-export default async function getFavPokemon(favPokemonName) {
+export default async function getFavPokemon(
+  favPokemonName: string
+): Promise<Pokemon> {
   try {
     const res = await fetch(
       `https://pokeapi.co/api/v2/pokemon/${favPokemonName}`
@@ -19,7 +22,10 @@ export default async function getFavPokemon(favPokemonName) {
   }
 }
 
-export async function getAllPokemons(offset, limit) {
+export async function getAllPokemons(
+  offset: number,
+  limit: number
+): Promise<ReadonlyArray<Pokemon>> {
   try {
     const res = await fetch(
       `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`

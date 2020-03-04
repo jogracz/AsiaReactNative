@@ -2,30 +2,42 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, FlatList, Dimensions } from 'react-native';
 import { getAllPokemons } from '../api/pokemon';
 
-const keyExtractor = ({ name }) => name;
+const keyExtractor = ({ name }: { name: string }): string => name;
 
 const PokemonList = () => {
+  interface Pokemon {
+    name: string;
+    weight: number;
+    height: number;
+    base_experience: number;
+    sprites: [object];
+    url: string;
+  }
+
   const step = 20;
   const [batchStart, setBatchStart] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [pokemons, setPokemons] = useState(null);
+  const [pokemons, setPokemons] = useState([]);
 
   useEffect(() => {
     const effect = async () => {
       const allPokemons = await getAllPokemons(batchStart, step);
-      setPokemons(allPokemons);
+      setPokemons([...allPokemons]);
       setLoading(false);
-      setBatchStart(batchStart + step);
+      if (allPokemons) setBatchStart(batchStart + step);
     };
     effect();
   }, []);
 
-  const renderItem = ({ item }) => {
-    //const matchRes = item.url.match('(pokemon\\/{1}(\\d+)\\/{1})', 'gi');
-
-    // this is more readable than regex
-    const urlChopped = item.url.split('/');
+  const retrieveIdFromUrl = (url: string): string => {
+    const urlChopped = url.split('/');
     const id = urlChopped[urlChopped.length - 2];
+    return id;
+  };
+
+  const renderItem = ({ item }: { item: Pokemon }) => {
+    const id = retrieveIdFromUrl(item.url);
+
     return (
       <Text style={styles.header}>
         {id}. {item.name}
@@ -33,20 +45,12 @@ const PokemonList = () => {
     );
   };
 
-  const scrolledCloseToEnd = ({
-    layoutMeasurement,
-    contentOffset,
-    contentSize
-  }) => {
-    return (
-      layoutMeasurement.height + contentOffset.y >= contentSize.height - 200
-    );
-  };
-
   const getMorePokemons = async () => {
     const morePokemons = await getAllPokemons(batchStart, step);
-    setPokemons([...pokemons, ...morePokemons]);
-    setBatchStart(batchStart + step);
+    if (morePokemons) {
+      setPokemons([...pokemons, ...morePokemons]);
+      setBatchStart(batchStart + step);
+    }
   };
 
   if (loading) {
@@ -65,11 +69,10 @@ const PokemonList = () => {
           data={pokemons}
           renderItem={renderItem}
           keyExtractor={keyExtractor}
-          onScroll={({ nativeEvent }) => {
-            if (scrolledCloseToEnd(nativeEvent)) {
-              getMorePokemons();
-            }
+          onEndReached={() => {
+            getMorePokemons();
           }}
+          onEndReachedThreshold={0.5}
         />
       </View>
     );
