@@ -7,9 +7,7 @@ interface Pokemon {
   url: string;
 }
 
-export default async function getFavPokemon(
-  favPokemonName: string
-): Promise<Pokemon> {
+export default async function getFavPokemon(favPokemonName: string) {
   try {
     const res = await fetch(
       `https://pokeapi.co/api/v2/pokemon/${favPokemonName}`
@@ -22,16 +20,14 @@ export default async function getFavPokemon(
   }
 }
 
-export async function getAllPokemons(
-  offset: number,
-  limit: number
-): Promise<ReadonlyArray<Pokemon>> {
+export async function getAllPokemons(offset: number, limit: number) {
   try {
     const res = await fetch(
       `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`
     );
     const data = await res.json();
-    return data.results;
+    const pokemons: ReadonlyArray<Pokemon> = data.results;
+    return pokemons;
   } catch (error) {
     console.error(error);
     return null;
