@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { StyleSheet, Text, View, Image, Button } from 'react-native';
 import getFavPokemon from '../api/pokemon';
 import styles from '../style/base';
 import PropRow from '../components/PropRow';
 
-const FavPokemon = ({ navigation }) => {
+export default function FavPokemon({ navigation }) {
   const [favPokemon, setFavPokemon] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -16,6 +16,10 @@ const FavPokemon = ({ navigation }) => {
     }
     effect();
   }, []);
+
+  const buttonCallback = useCallback(() => {
+    navigation.navigate('FavMoreInfo', { favPokemon });
+  }, [favPokemon, navigation]);
 
   if (loading) {
     return (
@@ -40,13 +44,8 @@ const FavPokemon = ({ navigation }) => {
           <PropRow left='Height:' right={favPokemon.height} />
           <PropRow left='Base experience:' right={favPokemon.base_experience} />
         </View>
-        {/* <Button
-          title='Go to Pokemon List'
-          onPress={() => navigation.navigate('PokemonList')}
-        /> */}
+        <Button title='More Info' onPress={buttonCallback} />
       </View>
     );
   }
-};
-
-export default FavPokemon;
+}
