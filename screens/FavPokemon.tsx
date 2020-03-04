@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { StyleSheet, Text, View, Image, Button } from 'react-native';
 import getFavPokemon from '../api/pokemon';
-import styles from '../style/base';
 import PropRow from '../components/PropRow';
 import { Pokemon } from '../api/pokemon';
+import { colors } from '../style/styleVariables';
+import LoadingFull from '../components/LoadingFull';
 
 interface Props {
   navigation: { navigate(where: string, prop: {}): {} };
@@ -27,11 +28,7 @@ export default function FavPokemon({ navigation }: Props) {
   }, [favPokemon, navigation]);
 
   if (loading || !favPokemon) {
-    return (
-      <View style={styles.container}>
-        <Text>Loading...</Text>
-      </View>
-    );
+    return <LoadingFull />;
   } else {
     const types = [...favPokemon.types];
     return (
@@ -55,3 +52,32 @@ export default function FavPokemon({ navigation }: Props) {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.first,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  image: {
+    // backgroundColor: 'yellow',
+    width: 150,
+    height: 150,
+    marginTop: 30,
+    marginBottom: 10
+  },
+  header: {
+    marginTop: 0,
+    fontSize: 25,
+    fontWeight: '700',
+    color: colors.light
+  },
+  propCard: {
+    width: 160,
+    marginBottom: 40
+  },
+  pokeListElement: {
+    marginTop: 20
+  }
+});

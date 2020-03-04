@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
-import styles from '../style/base';
 import PropRow from '../components/PropRow';
 import { Pokemon } from '../api/pokemon';
+import { colors } from '../style/styleVariables';
 
 interface Props {
   route: { params: { favPokemon: Pokemon } };
@@ -40,5 +40,33 @@ export default function FavMoreInfo({ route }: Props) {
 const stylesMore = StyleSheet.create({
   pictures: {
     flexDirection: 'row'
+  }
+});
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.first,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  image: {
+    // backgroundColor: 'yellow',
+    width: 150,
+    height: 150,
+    marginTop: 30,
+    marginBottom: 10
+  },
+  header: {
+    marginTop: 50,
+    fontSize: 25,
+    fontWeight: '700',
+    color: colors.light
+  },
+  propCard: {
+    width: 160
+  },
+  pokeListElement: {
+    marginTop: 20
   }
 });

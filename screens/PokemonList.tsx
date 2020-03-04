@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, FlatList, Dimensions } from 'react-native';
 import { getAllPokemons } from '../api/pokemon';
 import { Pokemon } from '../api/pokemon';
+import { colors } from '../style/styleVariables';
+import LoadingFull from '../components/LoadingFull';
 
 const keyExtractor = ({ name }: { name: string }): string => name;
 
@@ -46,11 +48,7 @@ export default function PokemonList() {
   };
 
   if (loading) {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.pokemonListElement}>Loading...</Text>
-      </View>
-    );
+    return <LoadingFull />;
   } else {
     return (
       <View style={styles.container}>
@@ -75,7 +73,7 @@ const styles = StyleSheet.create({
   container: {
     height: Dimensions.get('window').height,
     flex: 1,
-    backgroundColor: '#EC6364',
+    backgroundColor: colors.second,
     alignItems: 'center',
     justifyContent: 'space-around'
   },
@@ -83,7 +81,7 @@ const styles = StyleSheet.create({
     marginTop: 50,
     fontSize: 25,
     fontWeight: '700',
-    color: 'white'
+    color: colors.light
   },
   list: {
     width: '100%'
