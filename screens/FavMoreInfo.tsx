@@ -30,7 +30,7 @@ export default function FavMoreInfo({ route }: Props) {
         <PropRow left='Move:' right={favPokemon.moves[0]['move']['name']} />
         <PropRow
           left='Abilities:'
-          right={abilities.map(a => a['ability']['name'])}
+          right={abilities.map(a => a['ability']['name']).join(', ')}
         />
       </View>
     </View>

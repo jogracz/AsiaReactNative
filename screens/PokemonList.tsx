@@ -9,12 +9,12 @@ export default function PokemonList() {
   const step = 20;
   const [batchStart, setBatchStart] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [pokemons, setPokemons] = useState<ReadonlyArray<Pokemon> | null>([]);
+  const [pokemons, setPokemons] = useState<ReadonlyArray<Pokemon>>([]);
 
   useEffect(() => {
     const effect = async () => {
       const allPokemons = await getAllPokemons(batchStart, step);
-      setPokemons(allPokemons);
+      setPokemons([...(allPokemons ?? [])]);
       setLoading(false);
       if (allPokemons) setBatchStart(batchStart + step);
     };
@@ -39,7 +39,7 @@ export default function PokemonList() {
 
   const getMorePokemons = async () => {
     const morePokemons = await getAllPokemons(batchStart, step);
-    if (pokemons && morePokemons) {
+    if (morePokemons) {
       setPokemons([...pokemons, ...morePokemons]);
       setBatchStart(batchStart + step);
     }

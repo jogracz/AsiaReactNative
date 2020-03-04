@@ -44,7 +44,7 @@ export default function FavPokemon({ navigation }: Props) {
         <View style={styles.propCard}>
           <PropRow
             left='Type:'
-            right={types.map(type => type['type']['name'])}
+            right={types.map(type => type['type']['name']).join(', ')}
           />
           <PropRow left='Weight:' right={favPokemon.weight} />
           <PropRow left='Height:' right={favPokemon.height} />

@@ -1,8 +1,3 @@
-export interface Sprite {
-  front_default: string;
-  front_shiny: string;
-}
-
 export interface Pokemon {
   name: string;
   weight: string;
