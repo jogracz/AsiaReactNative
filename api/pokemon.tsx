@@ -1,4 +1,13 @@
-export default async function getFavPokemon(favPokemonName) {
+interface Pokemon {
+  name: string;
+  weight: number;
+  height: number;
+  base_experience: number;
+  sprites: [object];
+  url: string;
+}
+
+export default async function getFavPokemon(favPokemonName: string) {
   try {
     const res = await fetch(
       `https://pokeapi.co/api/v2/pokemon/${favPokemonName}`
@@ -11,10 +20,16 @@ export default async function getFavPokemon(favPokemonName) {
   }
 }
 
-interface Pokemon {
-  name: string;
-  weight: number;
-  height: number;
-  base_experience: number;
-  sprites: [object];
+export async function getAllPokemons(offset: number, limit: number) {
+  try {
+    const res = await fetch(
+      `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`
+    );
+    const data = await res.json();
+    const pokemons: ReadonlyArray<Pokemon> = data.results;
+    return pokemons;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 }
