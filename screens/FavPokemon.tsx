@@ -29,6 +29,7 @@ export default function FavPokemon({ navigation }) {
       </View>
     );
   } else {
+    const types = [...favPokemon.types];
     return (
       <View style={styles.container}>
         <Text style={styles.header}>This is {favPokemon.name}!</Text>
@@ -39,7 +40,7 @@ export default function FavPokemon({ navigation }) {
         <View style={styles.propCard}>
           <PropRow
             left='Type:'
-            right={favPokemon.types.map(type => type['type']['name'])}
+            right={types.map(type => type['type']['name'])}
           />
           <PropRow left='Weight:' right={favPokemon.weight} />
           <PropRow left='Height:' right={favPokemon.height} />

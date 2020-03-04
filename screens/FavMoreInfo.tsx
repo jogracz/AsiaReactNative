@@ -2,9 +2,11 @@ import React from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
 import styles from '../style/base';
 import PropRow from '../components/PropRow';
+import { Pokemon } from '../api/pokemon';
 
-export default function FavMoreInfo({ route, navigation }) {
-  const { favPokemon } = route.params;
+export default function FavMoreInfo({ route }) {
+  const { favPokemon }: { favPokemon: Pokemon } = route.params;
+  const abilities = favPokemon.abilities.filter(a => !a['is_hidden']);
 
   return (
     <View style={styles.container}>
@@ -24,9 +26,7 @@ export default function FavMoreInfo({ route, navigation }) {
         <PropRow left='Move:' right={favPokemon.moves[0]['move']['name']} />
         <PropRow
           left='Abilities:'
-          right={favPokemon.abilities.map(
-            a => !a['is_hidden'] && a['ability']['name']
-          )}
+          right={abilities.map(a => a['ability']['name'])}
         />
       </View>
     </View>

@@ -1,11 +1,22 @@
+export interface Sprite {
+  front_default: string;
+  front_shiny: string;
+}
+
 export interface Pokemon {
   name: string;
   weight: string;
   height: string;
   base_experience: string;
-  sprites: [{ front_default: string; front_shiny: string }];
+  sprites: {
+    front_default: string;
+    front_shiny: string;
+    back_shiny: string;
+  };
   url: string;
-  types: [{ type: { name: string } }];
+  types: ReadonlyArray<{ type: { name: string } }>;
+  abilities: ReadonlyArray<{ is_hidden: boolean; ability: { name: string } }>;
+  moves: ReadonlyArray<{ move: { name: string } }>;
 }
 
 export default async function getFavPokemon(favPokemonName: string) {

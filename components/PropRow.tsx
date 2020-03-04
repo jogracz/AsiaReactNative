@@ -4,7 +4,7 @@ import styles from './styles';
 
 interface Props {
   left: string;
-  right: string;
+  right: string | Array<string>;
 }
 
 export default function PropRow({ left, right }: Props) {

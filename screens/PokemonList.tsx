@@ -9,7 +9,7 @@ export default function PokemonList() {
   const step = 20;
   const [batchStart, setBatchStart] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [pokemons, setPokemons] = useState<ReadonlyArray<Pokemon> | null>(null);
+  const [pokemons, setPokemons] = useState<ReadonlyArray<Pokemon> | null>([]);
 
   useEffect(() => {
     const effect = async () => {
