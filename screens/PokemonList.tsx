@@ -48,7 +48,7 @@ export default function PokemonList() {
   };
 
   if (loading) {
-    return <LoadingFull />;
+    return <LoadingFull styleProp={styles.container} />;
   } else {
     return (
       <View style={styles.container}>

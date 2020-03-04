@@ -28,7 +28,7 @@ export default function FavPokemon({ navigation }: Props) {
   }, [favPokemon, navigation]);
 
   if (loading || !favPokemon) {
-    return <LoadingFull />;
+    return <LoadingFull styleProp={styles.container} />;
   } else {
     const types = [...favPokemon.types];
     return (
@@ -47,7 +47,11 @@ export default function FavPokemon({ navigation }: Props) {
           <PropRow left='Height:' right={favPokemon.height} />
           <PropRow left='Base experience:' right={favPokemon.base_experience} />
         </View>
-        <Button title='More Info' onPress={buttonCallback} />
+        <Button
+          color={colors.fourth}
+          title='More Info'
+          onPress={buttonCallback}
+        />
       </View>
     );
   }
