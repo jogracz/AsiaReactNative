@@ -4,6 +4,8 @@ import { getAllPokemons } from '../api/pokemon';
 import { Pokemon } from '../api/pokemon';
 import { colors } from '../style/styleVariables';
 import LoadingFull from '../components/LoadingFull';
+import ContainerFull from '../components/ContainerFull';
+import Header from '../components/Header';
 
 const keyExtractor = ({ name }: { name: string }): string => name;
 
@@ -33,7 +35,7 @@ export default function PokemonList() {
     const id = retrieveIdFromUrl(item.url);
 
     return (
-      <Text style={styles.header}>
+      <Text style={styles.pokemonListElement}>
         {id}. {item.name}
       </Text>
     );
@@ -48,12 +50,11 @@ export default function PokemonList() {
   };
 
   if (loading) {
-    return <LoadingFull styleProp={styles.container} />;
+    return <LoadingFull bgColor={colors.third} />;
   } else {
     return (
-      <View style={styles.container}>
-        <Text style={styles.header}>Pokemon List</Text>
-
+      <ContainerFull bgColor={colors.third}>
+        <Header>Pokemon List</Header>
         <FlatList
           style={styles.list}
           data={pokemons}
@@ -64,29 +65,20 @@ export default function PokemonList() {
           }}
           onEndReachedThreshold={0.5}
         />
-      </View>
+      </ContainerFull>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    height: Dimensions.get('window').height,
-    flex: 1,
-    backgroundColor: colors.second,
-    alignItems: 'center',
-    justifyContent: 'space-around'
-  },
-  header: {
-    marginTop: 50,
-    fontSize: 25,
-    fontWeight: '700',
-    color: colors.light
-  },
   list: {
-    width: '100%'
+    width: '100%',
+    marginLeft: 160
   },
   pokemonListElement: {
-    marginTop: 30
+    marginTop: 40,
+    color: colors.light,
+    fontSize: 20,
+    fontWeight: '300'
   }
 });

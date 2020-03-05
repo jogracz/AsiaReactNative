@@ -3,6 +3,8 @@ import { StyleSheet, View, Text, Image } from 'react-native';
 import PropRow from '../components/PropRow';
 import { Pokemon } from '../api/pokemon';
 import { colors } from '../style/styleVariables';
+import ContainerFull from '../components/ContainerFull';
+import Header from '../components/Header';
 
 interface Props {
   route: { params: { favPokemon: Pokemon } };
@@ -13,8 +15,8 @@ export default function FavMoreInfo({ route }: Props) {
   const abilities = favPokemon.abilities.filter(a => !a.is_hidden);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>More on {favPokemon.name}!</Text>
+    <ContainerFull bgColor={colors.first}>
+      <Header>More on {favPokemon.name}!</Header>
       <View style={stylesMore.pictures}>
         <Image
           style={styles.image}
@@ -33,7 +35,7 @@ export default function FavMoreInfo({ route }: Props) {
           right={abilities.map(a => a.ability.name).join(', ')}
         />
       </View>
-    </View>
+    </ContainerFull>
   );
 }
 
@@ -44,24 +46,11 @@ const stylesMore = StyleSheet.create({
 });
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.first,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
   image: {
-    // backgroundColor: 'yellow',
     width: 150,
     height: 150,
     marginTop: 30,
     marginBottom: 10
-  },
-  header: {
-    marginTop: 50,
-    fontSize: 25,
-    fontWeight: '700',
-    color: colors.light
   },
   propCard: {
     width: 160

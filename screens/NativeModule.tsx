@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, Dimensions } from 'react-native';
 import { colors } from '../style/styleVariables';
 import ContainerFull from '../components/ContainerFull';
 
-function Inner() {
-  return <Text style={styles.header}>Native Module</Text>;
-}
-
 export default function NativeModule() {
-  return <ContainerFull internalComponent={<Inner />} />;
+  return (
+    <ContainerFull bgColor={colors.second}>
+      <Text style={styles.header}>Native Module</Text>
+    </ContainerFull>
+  );
 }
 
 const styles = StyleSheet.create({

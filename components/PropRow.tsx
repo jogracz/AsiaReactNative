@@ -1,6 +1,6 @@
 import React from 'react';
-import { Text, View } from 'react-native';
-import styles from './styles';
+import { StyleSheet, Text, View } from 'react-native';
+import { colors } from '../style/styleVariables';
 
 interface Props {
   left: string;
@@ -15,3 +15,15 @@ export default function PropRow({ left, right }: Props) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  properties: {
+    color: colors.light,
+    fontSize: 16
+  },
+  propRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  }
+});

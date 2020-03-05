@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { StyleSheet, Text, View, Image, Button } from 'react-native';
+import { StyleSheet, View, Image, Button } from 'react-native';
 import getFavPokemon from '../api/pokemon';
 import PropRow from '../components/PropRow';
 import { Pokemon } from '../api/pokemon';
 import { colors } from '../style/styleVariables';
 import LoadingFull from '../components/LoadingFull';
+import ContainerFull from '../components/ContainerFull';
+import Header from '../components/Header';
 
 interface Props {
   navigation: { navigate(where: string, prop: {}): {} };
@@ -28,12 +30,12 @@ export default function FavPokemon({ navigation }: Props) {
   }, [favPokemon, navigation]);
 
   if (loading || !favPokemon) {
-    return <LoadingFull styleProp={styles.container} />;
+    return <LoadingFull bgColor={colors.first} />;
   } else {
     const types = [...favPokemon.types];
     return (
-      <View style={styles.container}>
-        <Text style={styles.header}>This is {favPokemon.name}!</Text>
+      <ContainerFull bgColor={colors.first}>
+        <Header>This is {favPokemon.name}!</Header>
         <Image
           style={styles.image}
           source={{ uri: favPokemon.sprites.front_default }}
@@ -47,35 +49,24 @@ export default function FavPokemon({ navigation }: Props) {
           <PropRow left='Height:' right={favPokemon.height} />
           <PropRow left='Base experience:' right={favPokemon.base_experience} />
         </View>
-        <Button
-          color={colors.fourth}
-          title='More Info'
-          onPress={buttonCallback}
-        />
-      </View>
+        <View style={{ marginBottom: 70, marginTop: 50 }}>
+          <Button
+            color={colors.fourth}
+            title='More Info'
+            onPress={buttonCallback}
+          />
+        </View>
+      </ContainerFull>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.first,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
   image: {
-    // backgroundColor: 'yellow',
     width: 150,
     height: 150,
     marginTop: 30,
     marginBottom: 10
-  },
-  header: {
-    marginTop: 0,
-    fontSize: 25,
-    fontWeight: '700',
-    color: colors.light
   },
   propCard: {
     width: 160,

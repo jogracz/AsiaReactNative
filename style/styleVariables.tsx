@@ -3,7 +3,6 @@ export const colors = {
   second: '#4D3771',
   third: '#CF4160',
   fourth: 'orange',
-  //fourth: '#FFDB68',
   light: 'white',
   dark: 'grey'
 };

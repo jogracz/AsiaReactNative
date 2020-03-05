@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import styles from './styles';
+import { Text } from 'react-native';
+import ContainerFull from '../components/ContainerFull';
 
-export default function LoadingFull({ styleProp }: { styleProp: object }) {
+export default function LoadingFull({ bgColor }: { bgColor: string }) {
   return (
-    <View style={styleProp}>
+    <ContainerFull bgColor={bgColor}>
       <Text>Loading...</Text>
-    </View>
+    </ContainerFull>
   );
 }
