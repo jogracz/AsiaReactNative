@@ -7,6 +7,7 @@ import { colors } from '../style/styleVariables';
 import LoadingFull from '../components/LoadingFull';
 import ContainerFull from '../components/ContainerFull';
 import Header from '../components/Header';
+import PokemonComponent from '../components/PokemonComponent';
 
 interface Props {
   navigation: { navigate(where: string, prop: {}): {} };
@@ -35,23 +36,11 @@ export default function FavPokemon({ navigation }: Props) {
     const types = [...favPokemon.types];
     return (
       <ContainerFull bgColor={colors.first}>
-        <Header>This is {favPokemon.name}!</Header>
-        <Image
-          style={styles.image}
-          source={{ uri: favPokemon.sprites.front_default }}
-        />
-        <View style={styles.propCard}>
-          <PropRow
-            left='Type:'
-            right={types.map(t => t.type.name).join(', ')}
-          />
-          <PropRow left='Weight:' right={favPokemon.weight} />
-          <PropRow left='Height:' right={favPokemon.height} />
-          <PropRow left='Base experience:' right={favPokemon.base_experience} />
-        </View>
+        <Header>Your favourite pokemon is {favPokemon.name}!</Header>
+        <PokemonComponent pokemonName={favPokemon.name} />
         <View style={styles.buttonView}>
           <Button
-            color={colors.fourth}
+            color={colors.extra}
             title='More Info'
             onPress={buttonCallback}
           />
@@ -62,19 +51,6 @@ export default function FavPokemon({ navigation }: Props) {
 }
 
 const styles = StyleSheet.create({
-  image: {
-    width: 150,
-    height: 150,
-    marginTop: 30,
-    marginBottom: 10
-  },
-  propCard: {
-    width: 160,
-    marginBottom: 40
-  },
-  pokeListElement: {
-    marginTop: 20
-  },
   buttonView: {
     marginBottom: 70,
     marginTop: 50

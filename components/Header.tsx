@@ -8,10 +8,12 @@ const Header: FunctionComponent = ({ children }) => {
 
 const styles = StyleSheet.create({
   header: {
-    marginTop: 50,
+    marginTop: 20,
+    marginBottom: 30,
     fontSize: 25,
     fontWeight: '700',
-    color: colors.light
+    color: colors.light,
+    textAlign: 'center'
   }
 });
 
