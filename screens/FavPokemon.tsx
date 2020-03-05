@@ -49,7 +49,7 @@ export default function FavPokemon({ navigation }: Props) {
           <PropRow left='Height:' right={favPokemon.height} />
           <PropRow left='Base experience:' right={favPokemon.base_experience} />
         </View>
-        <View style={{ marginBottom: 70, marginTop: 50 }}>
+        <View style={styles.buttonView}>
           <Button
             color={colors.fourth}
             title='More Info'
@@ -74,5 +74,9 @@ const styles = StyleSheet.create({
   },
   pokeListElement: {
     marginTop: 20
+  },
+  buttonView: {
+    marginBottom: 70,
+    marginTop: 50
   }
 });

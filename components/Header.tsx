@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { colors } from '../style/styleVariables';
 
-export default function Header({ children }: { children: any }) {
+const Header: FunctionComponent = ({ children }) => {
   return <Text style={styles.header}>{children}</Text>;
-}
+};
 
 const styles = StyleSheet.create({
   header: {
@@ -14,3 +14,5 @@ const styles = StyleSheet.create({
     color: colors.light
   }
 });
+
+export default Header;

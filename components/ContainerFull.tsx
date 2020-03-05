@@ -1,18 +1,20 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 
-interface Props {
+type ContainerProps = {
   bgColor: string;
-  children: any;
-}
+};
 
-export default function ContainerFull({ bgColor, children }: Props) {
+const ContainerFull: FunctionComponent<ContainerProps> = ({
+  bgColor,
+  children
+}) => {
   return (
     <View style={[styles.container, { backgroundColor: bgColor }]}>
       {children}
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -22,3 +24,5 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   }
 });
+
+export default ContainerFull;
