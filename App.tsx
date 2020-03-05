@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import FavPokemonStack from './stacks/FavPokemonStack';
 import NativeModule from './screens/NativeModule';
 import PokemonListStack from './stacks/PokemonListStack';
+import { colors } from './style/styleVariables';
 
 const TabNav = createBottomTabNavigator();
 
@@ -33,7 +34,7 @@ export default function App() {
           }
         })}
         tabBarOptions={{
-          activeTintColor: '#59B6AE',
+          activeTintColor: colors.first,
           inactiveTintColor: 'gray'
         }}
       >

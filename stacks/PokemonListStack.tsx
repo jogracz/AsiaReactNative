@@ -2,13 +2,14 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import PokemonList from '../screens/PokemonList';
 import PokemonFromTheList from '../screens/PokemonFromTheList';
-import FavMoreInfo from '../screens/FavMoreInfo';
+import PokemonMoreInfo from '../screens/PokemonMoreInfo';
 
 const Stack = createStackNavigator();
 
 enum StackScreenNames {
   POKEMON_LIST = 'PokemonList',
-  POKEMON_FROM_THE_LIST = 'PokemonFromTheList'
+  POKEMON_FROM_THE_LIST = 'PokemonFromTheList',
+  POKEMON_MORE_INFO = 'PokemonMoreInfo'
 }
 
 export default function PokemonListStack() {
@@ -22,7 +23,10 @@ export default function PokemonListStack() {
       <Stack.Screen
         name={StackScreenNames.POKEMON_FROM_THE_LIST}
         component={PokemonFromTheList}
-        options={{ title: 'Check out this pokemon!' }}
+      />
+      <Stack.Screen
+        name={StackScreenNames.POKEMON_MORE_INFO}
+        component={PokemonMoreInfo}
       />
     </Stack.Navigator>
   );

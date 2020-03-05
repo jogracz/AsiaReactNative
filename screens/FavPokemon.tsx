@@ -1,22 +1,23 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { StyleSheet, View, Image, Button } from 'react-native';
 import getFavPokemon from '../api/pokemon';
-import PropRow from '../components/PropRow';
 import { Pokemon } from '../api/pokemon';
 import { colors } from '../style/styleVariables';
 import LoadingFull from '../components/LoadingFull';
 import ContainerFull from '../components/ContainerFull';
 import Header from '../components/Header';
 import PokemonComponent from '../components/PokemonComponent';
+import MoreInfoButton from '../components/MoreInfoButton';
 
 interface Props {
   navigation: { navigate(where: string, prop: {}): {} };
 }
 
 export default function FavPokemon({ navigation }: Props) {
+  // these will come from Context
   const [favPokemon, setFavPokemon] = useState<Pokemon | null>(null);
   const [loading, setLoading] = useState(true);
 
+  //This will be removed after I make the context part
   useEffect(() => {
     async function effect() {
       const pokemon = await getFavPokemon('vulpix');
@@ -27,32 +28,24 @@ export default function FavPokemon({ navigation }: Props) {
   }, []);
 
   const buttonCallback = useCallback(() => {
-    navigation.navigate('FavMoreInfo', { favPokemon });
+    navigation.navigate('PokemonMoreInfo', {
+      pokemon: favPokemon,
+      bgColor: colors.first
+    });
   }, [favPokemon, navigation]);
 
   if (loading || !favPokemon) {
     return <LoadingFull bgColor={colors.first} />;
   } else {
-    const types = [...favPokemon.types];
     return (
       <ContainerFull bgColor={colors.first}>
         <Header>Your favourite pokemon is {favPokemon.name}!</Header>
-        <PokemonComponent pokemonName={favPokemon.name} />
-        <View style={styles.buttonView}>
-          <Button
-            color={colors.extra}
-            title='More Info'
-            onPress={buttonCallback}
-          />
-        </View>
+        <PokemonComponent pokemon={favPokemon} />
+        <MoreInfoButton
+          bgColor={colors.extra}
+          buttonCallback={buttonCallback}
+        />
       </ContainerFull>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  buttonView: {
-    marginBottom: 70,
-    marginTop: 50
-  }
-});
