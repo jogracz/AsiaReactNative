@@ -1,28 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, Dimensions } from 'react-native';
+import { colors } from '../style/styleVariables';
+import ContainerFull from '../components/ContainerFull';
 
 export default function NativeModule() {
   return (
-    <View style={styles.container}>
+    <ContainerFull bgColor={colors.second}>
       <Text style={styles.header}>Native Module</Text>
-      {/* <Button
-        title='Check out my Favourite Pokemon'
-        onPress={() => navigation.navigate('FavPokemon')}
-      /> */}
-    </View>
+    </ContainerFull>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#4D3771',
-    alignItems: 'center',
-    justifyContent: 'space-around'
-  },
   header: {
     fontSize: 25,
     fontWeight: '700',
-    color: 'white'
+    color: colors.light
   }
 });

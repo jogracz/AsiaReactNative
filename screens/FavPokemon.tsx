@@ -1,9 +1,12 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { StyleSheet, Text, View, Image, Button } from 'react-native';
+import { StyleSheet, View, Image, Button } from 'react-native';
 import getFavPokemon from '../api/pokemon';
-import styles from '../style/base';
 import PropRow from '../components/PropRow';
 import { Pokemon } from '../api/pokemon';
+import { colors } from '../style/styleVariables';
+import LoadingFull from '../components/LoadingFull';
+import ContainerFull from '../components/ContainerFull';
+import Header from '../components/Header';
 
 interface Props {
   navigation: { navigate(where: string, prop: {}): {} };
@@ -27,16 +30,12 @@ export default function FavPokemon({ navigation }: Props) {
   }, [favPokemon, navigation]);
 
   if (loading || !favPokemon) {
-    return (
-      <View style={styles.container}>
-        <Text>Loading...</Text>
-      </View>
-    );
+    return <LoadingFull bgColor={colors.first} />;
   } else {
     const types = [...favPokemon.types];
     return (
-      <View style={styles.container}>
-        <Text style={styles.header}>This is {favPokemon.name}!</Text>
+      <ContainerFull bgColor={colors.first}>
+        <Header>This is {favPokemon.name}!</Header>
         <Image
           style={styles.image}
           source={{ uri: favPokemon.sprites.front_default }}
@@ -50,8 +49,34 @@ export default function FavPokemon({ navigation }: Props) {
           <PropRow left='Height:' right={favPokemon.height} />
           <PropRow left='Base experience:' right={favPokemon.base_experience} />
         </View>
-        <Button title='More Info' onPress={buttonCallback} />
-      </View>
+        <View style={styles.buttonView}>
+          <Button
+            color={colors.fourth}
+            title='More Info'
+            onPress={buttonCallback}
+          />
+        </View>
+      </ContainerFull>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  image: {
+    width: 150,
+    height: 150,
+    marginTop: 30,
+    marginBottom: 10
+  },
+  propCard: {
+    width: 160,
+    marginBottom: 40
+  },
+  pokeListElement: {
+    marginTop: 20
+  },
+  buttonView: {
+    marginBottom: 70,
+    marginTop: 50
+  }
+});
