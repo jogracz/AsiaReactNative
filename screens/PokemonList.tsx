@@ -18,7 +18,6 @@ export default function PokemonList({ navigation }: Props) {
   const [batchStart, setBatchStart] = useState(0);
   const [loading, setLoading] = useState(true);
   const [pokemons, setPokemons] = useState<ReadonlyArray<Pokemon>>([]);
-  const [favourite, setFavourite] = useState(null);
 
   useEffect(() => {
     const effect = async () => {
