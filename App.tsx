@@ -11,8 +11,8 @@ const TabNav = createBottomTabNavigator();
 
 export default function App() {
   enum TabScreenNames {
-    FAV_POKEMON = 'FavPokemonStack',
-    POKEMON_LIST = 'PokemonListStack',
+    FAV_POKEMON = 'FavPokemon',
+    POKEMON_LIST = 'PokemonList',
     NATIVE_MODULE = 'NativeModule'
   }
 
