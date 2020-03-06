@@ -39,10 +39,6 @@ export default function PokemonListMoreInfo({ route, navigation }: Props) {
     effect();
   }, [favPokemon]);
 
-  const toggleIconName = () => {
-    iconName === heartEmpty ? setIconName(heartFull) : setIconName(heartEmpty);
-  };
-
   const onPress = () => {
     setIconName(heartFull);
     saveFavPokemon(pokemon);
