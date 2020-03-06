@@ -1,0 +1,5 @@
+export const GET_ALL_POKEMONS = 'GET_ALL_POKEMONS';
+export const GET_POKEMON = 'GET_POKEMON';
+export const SAVE_FAV_POKEMON = 'SAVE_FAV_POKEMON';
+export const SET_LOADING = 'SET_LOADING';
+export const POKEMON_ERROR = 'POKEMON_ERROR';
