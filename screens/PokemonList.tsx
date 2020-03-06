@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { StyleSheet, Text, FlatList } from 'react-native';
+import { StyleSheet, FlatList } from 'react-native';
 import { getAllPokemons } from '../api/pokemon';
 import { Pokemon } from '../api/pokemon';
 import { colors } from '../style/styleVariables';
 import LoadingFull from '../components/LoadingFull';
 import ContainerFull from '../components/ContainerFull';
 import Header from '../components/Header';
+import { MemoizedPokemonListRow } from '../components/PokemonListRow';
 
 interface Props {
   navigation: { navigate(where: string, prop: {}): {} };
@@ -45,12 +46,11 @@ export default function PokemonList({ navigation }: Props) {
   const renderItem = ({ item }: { item: Pokemon }) => {
     const id = retrieveIdFromUrl(item.url);
     return (
-      <Text
-        style={styles.pokemonListTextElement}
-        onPress={() => goToMoreCallback(item.name)}
-      >
-        {id}. {item.name}
-      </Text>
+      <MemoizedPokemonListRow
+        pokemonId={id}
+        pokemonName={item.name}
+        onPokemonListRowClicked={goToMoreCallback}
+      />
     );
   };
 
@@ -76,7 +76,7 @@ export default function PokemonList({ navigation }: Props) {
           onEndReached={() => {
             getMorePokemons();
           }}
-          onEndReachedThreshold={0.5}
+          onEndReachedThreshold={0.2}
         />
       </ContainerFull>
     );
@@ -87,12 +87,5 @@ const styles = StyleSheet.create({
   list: {
     width: '100%',
     marginLeft: 10
-  },
-  pokemonListTextElement: {
-    marginBottom: 30,
-    marginLeft: 30,
-    color: colors.light,
-    fontSize: 24,
-    fontWeight: '300'
   }
 });
