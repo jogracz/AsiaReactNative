@@ -4,14 +4,17 @@ import PokemonReducer from './pokemonReducer';
 import { Pokemon } from '../api/pokemon';
 import { SAVE_FAV_POKEMON } from './types';
 
-export interface State {
+export interface PokemonState {
   favPokemon: Pokemon | null;
 }
 
-export type Action = { type: 'SAVE_FAV_POKEMON'; payload: any };
+enum PokemonActionType {
+  SAVE_FAV_POKEMON = 'SAVE_FAV_POKEMON'
+}
+export type PokemonAction = { type: PokemonActionType; payload: any };
 
 const PokemonState = (props: any) => {
-  const initialState: State = {
+  const initialState: PokemonState = {
     favPokemon: null
   };
 
@@ -19,7 +22,7 @@ const PokemonState = (props: any) => {
 
   // Save Favourite Pokemon
   function saveFavPokemon(pokemon: Pokemon) {
-    dispatch({ type: SAVE_FAV_POKEMON, payload: pokemon });
+    dispatch({ type: PokemonActionType.SAVE_FAV_POKEMON, payload: pokemon });
   }
 
   return (

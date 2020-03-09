@@ -1,7 +1,7 @@
 import { SAVE_FAV_POKEMON } from './types';
-import { State, Action } from './PokemonState';
+import { PokemonState, PokemonAction } from './PokemonState';
 
-export default (state: State, action: Action): State => {
+export default (state: PokemonState, action: PokemonAction): PokemonState => {
   switch (action.type) {
     case SAVE_FAV_POKEMON:
       return { favPokemon: action.payload };
