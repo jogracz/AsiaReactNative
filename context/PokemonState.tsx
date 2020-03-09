@@ -4,8 +4,14 @@ import PokemonReducer from './pokemonReducer';
 import { Pokemon } from '../api/pokemon';
 import { SAVE_FAV_POKEMON } from './types';
 
+export interface State {
+  favPokemon: Pokemon | null;
+}
+
+export type Action = { type: 'SAVE_FAV_POKEMON'; payload: any };
+
 const PokemonState = (props: any) => {
-  const initialState = {
+  const initialState: State = {
     favPokemon: null
   };
 
