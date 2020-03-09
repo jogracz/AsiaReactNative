@@ -42,7 +42,7 @@ export default function PokemonListMoreInfo({ route, navigation }: Props) {
   const onPress = useCallback(() => {
     setIconName(heartFull);
     saveFavPokemon(pokemon);
-  }, [favPokemon, iconName]);
+  }, [pokemon]);
 
   const buttonCallback = useCallback(() => {
     navigation.navigate('PokemonMoreInfo', { pokemon, bgColor: colors.extra });

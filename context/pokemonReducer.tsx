@@ -1,9 +1,16 @@
-import { PokemonState, PokemonAction } from './PokemonState';
-import { PokemonActionType } from './PokemonState';
+import {
+  PokemonActionTypes,
+  PokemonAction,
+  PokemonStateInterface
+} from './PokemonContextUtils';
 
-export default (state: PokemonState, action: PokemonAction): PokemonState => {
+export default (
+  state: PokemonStateInterface,
+  action: PokemonAction
+): PokemonStateInterface => {
   switch (action.type) {
-    case PokemonActionType.SAVE_FAV_POKEMON:
+    case PokemonActionTypes.LOAD_FAV_POKEMON:
+    case PokemonActionTypes.SAVE_FAV_POKEMON:
       return { favPokemon: action.payload };
     default:
       return state;
