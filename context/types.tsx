@@ -1,1 +1,0 @@
-export const SAVE_FAV_POKEMON = 'SAVE_FAV_POKEMON';

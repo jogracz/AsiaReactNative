@@ -2,13 +2,12 @@ import React, { useReducer } from 'react';
 import PokemonContext from './pokemonContext';
 import PokemonReducer from './pokemonReducer';
 import { Pokemon } from '../api/pokemon';
-import { SAVE_FAV_POKEMON } from './types';
 
 export interface PokemonState {
   favPokemon: Pokemon | null;
 }
 
-enum PokemonActionType {
+export enum PokemonActionType {
   SAVE_FAV_POKEMON = 'SAVE_FAV_POKEMON'
 }
 export type PokemonAction = { type: PokemonActionType; payload: any };
