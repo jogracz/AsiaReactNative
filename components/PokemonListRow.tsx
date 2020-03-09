@@ -8,14 +8,7 @@ interface Props {
   onPokemonListRowClicked: (pokemonName: string) => void;
 }
 
-function propsAreEqual(prevProps: Props, nextProps: Props) {
-  return (
-    prevProps.pokemonId === nextProps.pokemonId &&
-    prevProps.pokemonName === nextProps.pokemonName
-  );
-}
-
-export function PokemonListRow({
+function PokemonListRow({
   pokemonId,
   pokemonName,
   onPokemonListRowClicked
@@ -40,4 +33,5 @@ const styles = StyleSheet.create({
     fontWeight: '300'
   }
 });
-export const MemoizedPokemonListRow = React.memo(PokemonListRow, propsAreEqual);
+
+export default React.memo(PokemonListRow);
