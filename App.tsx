@@ -3,14 +3,15 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import FavPokemonStack from './stacks/FavPokemonStack';
-import PokemonList from './screens/PokemonList';
 import NativeModule from './screens/NativeModule';
+import PokemonListStack from './stacks/PokemonListStack';
+import { colors } from './style/styleVariables';
 
 const TabNav = createBottomTabNavigator();
 
 export default function App() {
   enum TabScreenNames {
-    FAV_POKEMON = 'FavPokemonStack',
+    FAV_POKEMON = 'FavPokemon',
     POKEMON_LIST = 'PokemonList',
     NATIVE_MODULE = 'NativeModule'
   }
@@ -19,7 +20,7 @@ export default function App() {
     <NavigationContainer>
       <TabNav.Navigator
         screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
+          tabBarIcon: ({ color, size }) => {
             let iconName;
 
             if (route.name === TabScreenNames.FAV_POKEMON) {
@@ -33,7 +34,7 @@ export default function App() {
           }
         })}
         tabBarOptions={{
-          activeTintColor: '#59B6AE',
+          activeTintColor: colors.first,
           inactiveTintColor: 'gray'
         }}
       >
@@ -43,7 +44,7 @@ export default function App() {
         />
         <TabNav.Screen
           name={TabScreenNames.POKEMON_LIST}
-          component={PokemonList}
+          component={PokemonListStack}
         />
         <TabNav.Screen
           name={TabScreenNames.NATIVE_MODULE}

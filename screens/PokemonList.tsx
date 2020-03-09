@@ -1,15 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, FlatList, Dimensions } from 'react-native';
+import React, { useEffect, useState, useCallback } from 'react';
+import { StyleSheet, FlatList } from 'react-native';
 import { getAllPokemons } from '../api/pokemon';
 import { Pokemon } from '../api/pokemon';
 import { colors } from '../style/styleVariables';
 import LoadingFull from '../components/LoadingFull';
 import ContainerFull from '../components/ContainerFull';
 import Header from '../components/Header';
+import PokemonListRow from '../components/PokemonListRow';
+
+interface Props {
+  navigation: { navigate(where: string, prop: {}): {} };
+}
 
 const keyExtractor = ({ name }: { name: string }): string => name;
 
-export default function PokemonList() {
+export default function PokemonList({ navigation }: Props) {
   const step = 20;
   const [batchStart, setBatchStart] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -31,13 +36,21 @@ export default function PokemonList() {
     return id;
   };
 
+  const goToMoreCallback = useCallback(
+    pokemonName => {
+      navigation.navigate('PokemonFromTheList', { pokemonName });
+    },
+    [navigation]
+  );
+
   const renderItem = ({ item }: { item: Pokemon }) => {
     const id = retrieveIdFromUrl(item.url);
-
     return (
-      <Text style={styles.pokemonListElement}>
-        {id}. {item.name}
-      </Text>
+      <PokemonListRow
+        pokemonId={id}
+        pokemonName={item.name}
+        onPokemonListRowClicked={goToMoreCallback}
+      />
     );
   };
 
@@ -50,10 +63,10 @@ export default function PokemonList() {
   };
 
   if (loading) {
-    return <LoadingFull bgColor={colors.third} />;
+    return <LoadingFull bgColor={colors.extra} />;
   } else {
     return (
-      <ContainerFull bgColor={colors.third}>
+      <ContainerFull bgColor={colors.extra}>
         <Header>Pokemon List</Header>
         <FlatList
           style={styles.list}
@@ -63,7 +76,7 @@ export default function PokemonList() {
           onEndReached={() => {
             getMorePokemons();
           }}
-          onEndReachedThreshold={0.5}
+          onEndReachedThreshold={0.2}
         />
       </ContainerFull>
     );
@@ -73,12 +86,6 @@ export default function PokemonList() {
 const styles = StyleSheet.create({
   list: {
     width: '100%',
-    marginLeft: 160
-  },
-  pokemonListElement: {
-    marginTop: 40,
-    color: colors.light,
-    fontSize: 20,
-    fontWeight: '300'
+    marginLeft: 10
   }
 });

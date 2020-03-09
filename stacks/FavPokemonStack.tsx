@@ -1,13 +1,13 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import FavPokemon from '../screens/FavPokemon';
-import FavMoreInfo from '../screens/FavMoreInfo';
+import PokemonMoreInfo from '../screens/PokemonMoreInfo';
 
 const Stack = createStackNavigator();
 
 enum StackScreenNames {
   FAV_POKEMON = 'FavPokemon',
-  FAV_MORE_INFO = 'FavMoreInfo'
+  POKEMON_MORE_INFO = 'PokemonMoreInfo'
 }
 
 export default function FavPokemonStack() {
@@ -19,8 +19,8 @@ export default function FavPokemonStack() {
         options={{ title: 'My Favourite Pokemon' }}
       />
       <Stack.Screen
-        name={StackScreenNames.FAV_MORE_INFO}
-        component={FavMoreInfo}
+        name={StackScreenNames.POKEMON_MORE_INFO}
+        component={PokemonMoreInfo}
         options={{ title: 'More Info' }}
       />
     </Stack.Navigator>

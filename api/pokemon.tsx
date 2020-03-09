@@ -14,11 +14,9 @@ export interface Pokemon {
   moves: ReadonlyArray<{ move: { name: string } }>;
 }
 
-export default async function getFavPokemon(favPokemonName: string) {
+export default async function getPokemon(pokemonName: string) {
   try {
-    const res = await fetch(
-      `https://pokeapi.co/api/v2/pokemon/${favPokemonName}`
-    );
+    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
     const pokemon: Pokemon = await res.json();
     return pokemon;
   } catch (error) {
