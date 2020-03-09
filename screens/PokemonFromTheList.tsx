@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Pokemon } from '../api/pokemon';
 import PokemonComponent from '../components/PokemonComponent';
@@ -9,6 +9,7 @@ import { Ionicons } from '@expo/vector-icons';
 import getPokemon from '../api/pokemon';
 import LoadingFull from '../components/LoadingFull';
 import MoreInfoButton from '../components/MoreInfoButton';
+import PokemonContext from '../context/pokemonContext';
 
 interface Props {
   route: { params: { pokemonName: string } };
@@ -16,6 +17,9 @@ interface Props {
 }
 
 export default function PokemonListMoreInfo({ route, navigation }: Props) {
+  const pokemonContext = useContext(PokemonContext);
+  const { favPokemon, saveFavPokemon } = pokemonContext;
+
   const heartEmpty = 'md-heart-empty';
   const heartFull = 'md-heart';
   const { pokemonName } = route.params;
@@ -28,13 +32,17 @@ export default function PokemonListMoreInfo({ route, navigation }: Props) {
       const data = await getPokemon(pokemonName);
       setPokemon(data);
       setLoading(false);
+      if (data && favPokemon && data.name === favPokemon.name) {
+        setIconName(heartFull);
+      }
     }
     effect();
-  }, []);
+  }, [favPokemon]);
 
-  const toggleIconName = () => {
-    iconName === heartEmpty ? setIconName(heartFull) : setIconName(heartEmpty);
-  };
+  const onPress = useCallback(() => {
+    setIconName(heartFull);
+    saveFavPokemon(pokemon);
+  }, [favPokemon, iconName]);
 
   const buttonCallback = useCallback(() => {
     navigation.navigate('PokemonMoreInfo', { pokemon, bgColor: colors.extra });
@@ -51,7 +59,7 @@ export default function PokemonListMoreInfo({ route, navigation }: Props) {
             name={iconName}
             size={50}
             color={colors.light}
-            onPress={toggleIconName}
+            onPress={onPress}
           />
         </View>
         <PokemonComponent pokemon={pokemon} />

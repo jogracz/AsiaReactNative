@@ -1,31 +1,18 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import getFavPokemon from '../api/pokemon';
-import { Pokemon } from '../api/pokemon';
+import React, { useCallback, useContext } from 'react';
 import { colors } from '../style/styleVariables';
-import LoadingFull from '../components/LoadingFull';
 import ContainerFull from '../components/ContainerFull';
 import Header from '../components/Header';
 import PokemonComponent from '../components/PokemonComponent';
 import MoreInfoButton from '../components/MoreInfoButton';
+import PokemonContext from '../context/pokemonContext';
 
 interface Props {
   navigation: { navigate(where: string, prop: {}): {} };
 }
 
 export default function FavPokemon({ navigation }: Props) {
-  // these will come from Context
-  const [favPokemon, setFavPokemon] = useState<Pokemon | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  //This will be removed after I make the context part
-  useEffect(() => {
-    async function effect() {
-      const pokemon = await getFavPokemon('vulpix');
-      setFavPokemon(pokemon);
-      setLoading(false);
-    }
-    effect();
-  }, []);
+  const pokemonContext = useContext(PokemonContext);
+  const { favPokemon } = pokemonContext;
 
   const buttonCallback = useCallback(() => {
     navigation.navigate('PokemonMoreInfo', {
@@ -34,8 +21,12 @@ export default function FavPokemon({ navigation }: Props) {
     });
   }, [favPokemon, navigation]);
 
-  if (loading || !favPokemon) {
-    return <LoadingFull bgColor={colors.first} />;
+  if (!favPokemon) {
+    return (
+      <ContainerFull bgColor={colors.first}>
+        <Header>Go to Pokemon List and Choose your favourite pokemon!</Header>
+      </ContainerFull>
+    );
   } else {
     return (
       <ContainerFull bgColor={colors.first}>

@@ -6,6 +6,7 @@ import FavPokemonStack from './stacks/FavPokemonStack';
 import NativeModule from './screens/NativeModule';
 import PokemonListStack from './stacks/PokemonListStack';
 import { colors } from './style/styleVariables';
+import PokemonState from './context/PokemonState';
 
 const TabNav = createBottomTabNavigator();
 
@@ -17,40 +18,42 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <TabNav.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ color, size }) => {
-            let iconName;
+    <PokemonState>
+      <NavigationContainer>
+        <TabNav.Navigator
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ color, size }) => {
+              let iconName;
 
-            if (route.name === TabScreenNames.FAV_POKEMON) {
-              iconName = 'md-heart';
-            } else if (route.name === TabScreenNames.POKEMON_LIST) {
-              iconName = 'md-paw';
-            } else if ((route.name = TabScreenNames.NATIVE_MODULE)) {
-              iconName = 'md-cafe';
+              if (route.name === TabScreenNames.FAV_POKEMON) {
+                iconName = 'md-heart';
+              } else if (route.name === TabScreenNames.POKEMON_LIST) {
+                iconName = 'md-paw';
+              } else if ((route.name = TabScreenNames.NATIVE_MODULE)) {
+                iconName = 'md-cafe';
+              }
+              return <Ionicons name={iconName} size={size} color={color} />;
             }
-            return <Ionicons name={iconName} size={size} color={color} />;
-          }
-        })}
-        tabBarOptions={{
-          activeTintColor: colors.first,
-          inactiveTintColor: 'gray'
-        }}
-      >
-        <TabNav.Screen
-          name={TabScreenNames.FAV_POKEMON}
-          component={FavPokemonStack}
-        />
-        <TabNav.Screen
-          name={TabScreenNames.POKEMON_LIST}
-          component={PokemonListStack}
-        />
-        <TabNav.Screen
-          name={TabScreenNames.NATIVE_MODULE}
-          component={NativeModule}
-        />
-      </TabNav.Navigator>
-    </NavigationContainer>
+          })}
+          tabBarOptions={{
+            activeTintColor: colors.first,
+            inactiveTintColor: 'gray'
+          }}
+        >
+          <TabNav.Screen
+            name={TabScreenNames.FAV_POKEMON}
+            component={FavPokemonStack}
+          />
+          <TabNav.Screen
+            name={TabScreenNames.POKEMON_LIST}
+            component={PokemonListStack}
+          />
+          <TabNav.Screen
+            name={TabScreenNames.NATIVE_MODULE}
+            component={NativeModule}
+          />
+        </TabNav.Navigator>
+      </NavigationContainer>
+    </PokemonState>
   );
 }
