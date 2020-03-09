@@ -23,10 +23,12 @@ export default function PokemonListStack() {
       <Stack.Screen
         name={StackScreenNames.POKEMON_FROM_THE_LIST}
         component={PokemonFromTheList}
+        options={{ title: 'Check out this pokemon' }}
       />
       <Stack.Screen
         name={StackScreenNames.POKEMON_MORE_INFO}
         component={PokemonMoreInfo}
+        options={{ title: 'More Info' }}
       />
     </Stack.Navigator>
   );

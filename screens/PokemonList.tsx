@@ -6,7 +6,7 @@ import { colors } from '../style/styleVariables';
 import LoadingFull from '../components/LoadingFull';
 import ContainerFull from '../components/ContainerFull';
 import Header from '../components/Header';
-import { MemoizedPokemonListRow } from '../components/PokemonListRow';
+import PokemonListRow from '../components/PokemonListRow';
 
 interface Props {
   navigation: { navigate(where: string, prop: {}): {} };
@@ -46,7 +46,7 @@ export default function PokemonList({ navigation }: Props) {
   const renderItem = ({ item }: { item: Pokemon }) => {
     const id = retrieveIdFromUrl(item.url);
     return (
-      <MemoizedPokemonListRow
+      <PokemonListRow
         pokemonId={id}
         pokemonName={item.name}
         onPokemonListRowClicked={goToMoreCallback}
