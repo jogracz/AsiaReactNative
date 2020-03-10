@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import { colors } from '../style/styleVariables';
 import ContainerFull from '../components/ContainerFull';
 import Header from '../components/Header';
@@ -12,7 +12,11 @@ interface Props {
 
 export default function FavPokemon({ navigation }: Props) {
   const pokemonContext = useContext(PokemonContext);
-  const { favPokemon } = pokemonContext;
+  const { loadFavPokemon, favPokemon } = pokemonContext;
+
+  useEffect(() => {
+    loadFavPokemon();
+  }, []);
 
   const buttonCallback = useCallback(() => {
     navigation.navigate('PokemonMoreInfo', {
