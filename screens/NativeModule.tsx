@@ -5,8 +5,8 @@ import ContainerFull from '../components/ContainerFull';
 import Header from '../components/Header';
 import { Camera } from 'expo-camera';
 import CameraComponent from '../components/CameraComponent';
-import { morseDictionary } from '../morseMessenger/morseDictionary';
 import MorseForm from '../components/MorseForm';
+import { translateToMorse } from '../morseMessenger/morseFunctions';
 
 const TORCH_ON = 'torch';
 const TORCH_OFF = '';
@@ -87,16 +87,6 @@ export default function NativeModule() {
   //   });
   // }
 
-  //Break down a sentence
-  const wordToMorse = (sentence: string): Array<string> => {
-    const letters = sentence.toLowerCase().split('');
-    const morseCode: Array<string | null> = [];
-    letters.forEach((letter: string) =>
-      morseCode.push(...morseDictionary[letter])
-    );
-    return morseCode;
-  };
-
   // const longOrShort = {
   //   pause: pause,
   //   s: short,
@@ -104,16 +94,18 @@ export default function NativeModule() {
   // };
 
   const asyncFlash = async (sentence: string): Promise<void> => {
-    const morseCode = wordToMorse(sentence);
+    const morseCode = translateToMorse(sentence);
 
     for (let i = 0; i < morseCode.length; i++) {
-      if (morseCode[i] == 's') {
-        await short();
-      } else if (morseCode[i] === 'l') {
-        await long();
-      } else if (morseCode[i] === 'pause') {
-        await pause();
+      switch (morseCode[i]) {
+        case 's':
+          await short();
+        case 'l':
+          await long();
+        case 'pause':
+          await pause();
       }
+
       //await longOrShort[morseCode[i]]();
     }
   };
