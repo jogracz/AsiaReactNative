@@ -4,13 +4,13 @@ const l = 'l';
 const pause = 'pause';
 
 export const morseDictionary = {
-  ' ': ['pause'],
-  a: ['s', 'l'],
-  b: ['l', 's', 's', 's'],
-  c: ['l', 's', 'l', 's'],
-  d: ['l', 's', 's'],
-  e: ['s'],
-  f: ['s', 's', 'l', 's'],
+  ' ': [pause],
+  a: [s, l],
+  b: [l, s, s, s],
+  c: [l, s, l, s],
+  d: [l, s, s],
+  e: [s],
+  f: [s, s, l, s],
   g: [l, l, s],
   h: [s, s, s, s],
   i: [s, s],
