@@ -65,17 +65,30 @@ export default function NativeModule() {
     });
   }
 
-  const newFlash = () => {
-    long()
-      .then(short)
-      .then(short)
-      .then(short)
-      .then(long)
-      .then(long)
-      .then(long)
-      .then(short);
+  // const newFlash = () => {
+  //   long()
+  //     .then(short)
+  //     .then(short)
+  //     .then(short)
+  //     .then(long)
+  //     .then(long)
+  //     .then(long)
+  //     .then(short);
+  // };
+
+  const morseDict = {
+    a: ['s', 'l'],
+    b: ['l', 's', 's', 's'],
+    c: ['l', 's', 'l', 's'],
+    d: ['l', 's', 's'],
+    e: ['s']
   };
 
+  const wordToMorse = word => {
+    const letters = word.toList();
+    const morseLetters = letters.map(letter > morseDict[letter]);
+    console.log(morseLetters);
+  };
   const slList = ['s', 's', 's', 'l', 'l', 's', 's', 's'];
 
   const longOrShort = {
