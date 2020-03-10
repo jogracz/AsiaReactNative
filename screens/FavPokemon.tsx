@@ -3,7 +3,7 @@ import { colors } from '../style/styleVariables';
 import ContainerFull from '../components/ContainerFull';
 import Header from '../components/Header';
 import PokemonComponent from '../components/PokemonComponent';
-import MoreInfoButton from '../components/MoreInfoButton';
+import ButtonComponent from '../components/ButtonComponent';
 import PokemonContext from '../context/pokemonContext';
 
 interface Props {
@@ -36,8 +36,9 @@ export default function FavPokemon({ navigation }: Props) {
       <ContainerFull bgColor={colors.first}>
         <Header>Your favourite pokemon is {favPokemon.name}!</Header>
         <PokemonComponent pokemon={favPokemon} />
-        <MoreInfoButton
+        <ButtonComponent
           bgColor={colors.extra}
+          title='More Info'
           buttonCallback={buttonCallback}
         />
       </ContainerFull>
