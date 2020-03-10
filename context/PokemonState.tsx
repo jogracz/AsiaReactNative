@@ -5,8 +5,10 @@ import { Pokemon } from '../api/pokemon';
 import {
   PokemonActionTypes,
   PokemonStateInterface
-} from './PokemonContextUtils';
+} from './pokemonContextTypes';
 import { AsyncStorage } from 'react-native';
+
+const POKEMON_STORAGE_KEY = 'FAV_POKEMON';
 
 const PokemonState = (props: any) => {
   const initialState: PokemonStateInterface = {
@@ -15,15 +17,13 @@ const PokemonState = (props: any) => {
 
   const [state, dispatch] = useReducer(PokemonReducer, initialState);
 
-  const POKEMON_STORAGE_KEY = 'FAV_POKEMON';
-
   // Load Favourite Pokemon
   async function loadFavPokemon() {
     try {
-      const fpokemon = await AsyncStorage.getItem(POKEMON_STORAGE_KEY);
+      const pokemon = await AsyncStorage.getItem(POKEMON_STORAGE_KEY);
       dispatch({
         type: PokemonActionTypes.LOAD_FAV_POKEMON,
-        payload: JSON.parse(fpokemon)
+        payload: JSON.parse(pokemon)
       });
     } catch (error) {
       console.error(error);

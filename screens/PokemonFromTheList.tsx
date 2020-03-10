@@ -16,12 +16,12 @@ interface Props {
   navigation: { navigate(where: string, prop: {}): {} };
 }
 
+const heartEmpty = 'md-heart-empty';
+const heartFull = 'md-heart';
+
 export default function PokemonListMoreInfo({ route, navigation }: Props) {
   const pokemonContext = useContext(PokemonContext);
   const { favPokemon, saveFavPokemon } = pokemonContext;
-
-  const heartEmpty = 'md-heart-empty';
-  const heartFull = 'md-heart';
   const { pokemonName } = route.params;
   const [iconName, setIconName] = useState(heartEmpty);
   const [pokemon, setPokemon] = useState<Pokemon | null>(null);

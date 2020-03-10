@@ -2,7 +2,7 @@ import {
   PokemonActionTypes,
   PokemonAction,
   PokemonStateInterface
-} from './PokemonContextUtils';
+} from './pokemonContextTypes';
 
 export default (
   state: PokemonStateInterface,
