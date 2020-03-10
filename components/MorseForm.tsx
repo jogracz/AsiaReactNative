@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import { colors } from '../style/styleVariables';
-import Header from './Header';
 import ButtonComponent from './ButtonComponent';
 
 export default function MorseForm({ buttonCallback }) {

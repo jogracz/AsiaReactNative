@@ -94,6 +94,7 @@ export default function NativeModule() {
 
   const asyncFlash = async (sentence: string): Promise<void> => {
     const morseCode = translateToMorse(sentence);
+    console.log(morseCode);
     for (let i = 0; i < morseCode.length; i++) {
       if (morseCode[i] === 's') {
         await short();
@@ -122,7 +123,6 @@ export default function NativeModule() {
         <Header>Native Module - Morse Messenger</Header>
         <CameraComponent flashMode={flashMode} />
         <MorseForm buttonCallback={buttonCallback} />
-        <Text onPress={() => asyncFlash('a cab caca ba')}>ToggleFlashMode</Text>
       </ContainerFull>
     );
   }
