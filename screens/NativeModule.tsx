@@ -16,7 +16,6 @@ export default function NativeModule() {
   const [flashMode, setFlashMode] = useState('');
 
   const buttonCallback = useCallback(input => {
-    console.log(input);
     asyncFlash(input);
   }, []);
 
@@ -95,15 +94,13 @@ export default function NativeModule() {
 
   const asyncFlash = async (sentence: string): Promise<void> => {
     const morseCode = translateToMorse(sentence);
-
     for (let i = 0; i < morseCode.length; i++) {
-      switch (morseCode[i]) {
-        case 's':
-          await short();
-        case 'l':
-          await long();
-        case 'pause':
-          await pause();
+      if (morseCode[i] === 's') {
+        await short();
+      } else if (morseCode[i] === 'l') {
+        await long();
+      } else if (morseCode[i] === 'pause') {
+        await pause();
       }
 
       //await longOrShort[morseCode[i]]();
