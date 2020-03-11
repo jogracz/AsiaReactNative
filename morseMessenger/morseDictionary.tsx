@@ -1,4 +1,3 @@
-//Dictionary: letters to short('s')/long('l')
 const s = 's';
 const l = 'l';
 const pause = 'pause';
