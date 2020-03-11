@@ -8,7 +8,7 @@ import { colors } from '../style/styleVariables';
 import { Ionicons } from '@expo/vector-icons';
 import getPokemon from '../api/pokemon';
 import LoadingFull from '../components/LoadingFull';
-import MoreInfoButton from '../components/MoreInfoButton';
+import ButtonComponent from '../components/ButtonComponent';
 import PokemonContext from '../context/pokemonContext';
 
 interface Props {
@@ -63,8 +63,9 @@ export default function PokemonListMoreInfo({ route, navigation }: Props) {
           />
         </View>
         <PokemonComponent pokemon={pokemon} />
-        <MoreInfoButton
+        <ButtonComponent
           bgColor={colors.first}
+          title='More Info'
           buttonCallback={buttonCallback}
         />
       </ContainerFull>
