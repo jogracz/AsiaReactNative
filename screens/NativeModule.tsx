@@ -7,7 +7,7 @@ import { Camera } from 'expo-camera';
 import CameraComponent from '../components/CameraComponent';
 import MorseForm from '../components/MorseForm';
 import { translateToMorse } from '../morseMessenger/morseFunctions';
-import { dictOptions } from '../morseMessenger/morseDictionary';
+import { DictOptions } from '../morseMessenger/morseDictionary';
 
 const TORCH_ON = 'torch';
 const TORCH_OFF = 'off';
@@ -15,9 +15,6 @@ const PAUSE = 1000;
 const FLASH_PAUSE = 400;
 const FLASH_SHORT = 100;
 const FLASH_LONG = 700;
-const s = dictOptions.s;
-const l = dictOptions.l;
-const dictPause = dictOptions.pause;
 
 export default function NativeModule() {
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
@@ -79,25 +76,18 @@ export default function NativeModule() {
     });
   }
 
-  // const longOrShort = {
-  //   pause: pause,
-  //   s: short,
-  //   l: long
-  // };
-
   async function asyncFlash(sentence: string): Promise<void> {
     setButtonDisabled(true);
 
     const morseCode = translateToMorse(sentence);
     for (let i = 0; i < morseCode.length; i++) {
-      if (morseCode[i] === s) {
+      if (morseCode[i] === DictOptions.s) {
         await short();
-      } else if (morseCode[i] === l) {
+      } else if (morseCode[i] === DictOptions.l) {
         await long();
-      } else if (morseCode[i] === dictPause) {
+      } else if (morseCode[i] === DictOptions.pause) {
         await pause();
       }
-      //await longOrShort[morseCode[i]]();
     }
     setButtonDisabled(false);
   }

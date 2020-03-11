@@ -67,7 +67,6 @@ export default function PokemonListMoreInfo({ route, navigation }: Props) {
           bgColor={colors.first}
           title='More Info'
           buttonCallback={buttonCallback}
-          buttonDisabled={false}
         />
       </ContainerFull>
     );

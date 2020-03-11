@@ -5,7 +5,7 @@ interface Props {
   bgColor: string;
   title: string;
   buttonCallback: () => void;
-  buttonDisabled: boolean;
+  buttonDisabled?: boolean;
 }
 
 export default function ButtonComponent({

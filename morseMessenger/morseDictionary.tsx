@@ -1,9 +1,9 @@
 //Dictionary: letters to short('s')/long('l')
-let s = 's';
-let l = 'l';
-let pause = 'pause';
+const s = 's';
+const l = 'l';
+const pause = 'pause';
 
-export enum dictOptions {
+export enum DictOptions {
   s = 's',
   l = 'l',
   pause = 'pause'
