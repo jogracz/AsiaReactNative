@@ -40,6 +40,7 @@ export default function FavPokemon({ navigation }: Props) {
           bgColor={colors.extra}
           title='More Info'
           buttonCallback={buttonCallback}
+          buttonDisabled={false}
         />
       </ContainerFull>
     );

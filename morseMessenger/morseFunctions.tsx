@@ -1,10 +1,10 @@
-import { morseDictionary } from './morseDictionary';
+import { morseDictionary, dictOptions } from './morseDictionary';
 
-export function translateToMorse(sentence: string): Array<string> {
+export function translateToMorse(sentence: string) {
   const letters = sentence.toLowerCase().split('');
   const morseCode: Array<string> = [];
   letters.forEach((letter: string) =>
-    morseCode.push(...morseDictionary[letter], 'pause')
+    morseCode.push(...morseDictionary[letter], dictOptions.pause)
   );
   return morseCode;
 }

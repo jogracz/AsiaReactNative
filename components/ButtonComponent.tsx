@@ -5,16 +5,23 @@ interface Props {
   bgColor: string;
   title: string;
   buttonCallback: () => void;
+  buttonDisabled: boolean;
 }
 
 export default function ButtonComponent({
   bgColor,
   title,
-  buttonCallback
+  buttonCallback,
+  buttonDisabled
 }: Props) {
   return (
     <View style={styles.buttonView}>
-      <Button color={bgColor} title={title} onPress={buttonCallback} />
+      <Button
+        color={bgColor}
+        title={title}
+        onPress={buttonCallback}
+        disabled={buttonDisabled}
+      />
     </View>
   );
 }

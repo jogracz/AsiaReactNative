@@ -7,13 +7,22 @@ import { Camera } from 'expo-camera';
 import CameraComponent from '../components/CameraComponent';
 import MorseForm from '../components/MorseForm';
 import { translateToMorse } from '../morseMessenger/morseFunctions';
+import { dictOptions } from '../morseMessenger/morseDictionary';
 
 const TORCH_ON = 'torch';
-const TORCH_OFF = '';
+const TORCH_OFF = 'off';
+const PAUSE = 1000;
+const FLASH_PAUSE = 400;
+const FLASH_SHORT = 100;
+const FLASH_LONG = 700;
+const s = dictOptions.s;
+const l = dictOptions.l;
+const dictPause = dictOptions.pause;
 
 export default function NativeModule() {
-  const [hasPermission, setHasPermission] = useState(null);
-  const [flashMode, setFlashMode] = useState('');
+  const [hasPermission, setHasPermission] = useState<boolean | null>(null);
+  const [flashMode, setFlashMode] = useState(TORCH_OFF);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
 
   const buttonCallback = useCallback(input => {
     asyncFlash(input);
@@ -30,61 +39,45 @@ export default function NativeModule() {
     effect();
   }, []);
 
-  function torchOffAfter(time: number) {
+  function torchOffAfter(timeInMs: number) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         setFlashMode(TORCH_OFF);
         resolve();
-      }, time);
+      }, timeInMs);
     });
   }
-  function torchOnAfter(time: number) {
+  function torchOnAfter(timeInMs: number) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         setFlashMode(TORCH_ON);
         resolve();
-      }, time);
+      }, timeInMs);
     });
   }
   function short(): Promise<any> {
     return new Promise((resolve, reject) => {
-      torchOnAfter(400)
-        .then(() => torchOffAfter(100))
+      torchOnAfter(FLASH_PAUSE)
+        .then(() => torchOffAfter(FLASH_SHORT))
         .then(resolve);
     });
   }
 
-  function long(): Promise<any> {
+  function long() {
     return new Promise((resolve, reject) => {
-      torchOnAfter(400)
-        .then(() => torchOffAfter(700))
+      torchOnAfter(FLASH_PAUSE)
+        .then(() => torchOffAfter(FLASH_LONG))
         .then(resolve);
     });
   }
 
-  function pause(): Promise<any> {
+  function pause() {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve();
-      }, 1000);
+      }, PAUSE);
     });
   }
-
-  // function letterPause(): Promise<any> {
-  //   return new Promise((resolve, reject) => {
-  //     setTimeout(() => {
-  //       resolve();
-  //     }, 1000);
-  //   });
-  // }
-
-  // function wordPause(): Promise<any> {
-  //   return new Promise((resolve, reject) => {
-  //     setTimeout(() => {
-  //       resolve();
-  //     }, 2000);
-  //   });
-  // }
 
   // const longOrShort = {
   //   pause: pause,
@@ -92,21 +85,22 @@ export default function NativeModule() {
   //   l: long
   // };
 
-  const asyncFlash = async (sentence: string): Promise<void> => {
+  async function asyncFlash(sentence: string): Promise<void> {
+    setButtonDisabled(true);
+
     const morseCode = translateToMorse(sentence);
-    console.log(morseCode);
     for (let i = 0; i < morseCode.length; i++) {
-      if (morseCode[i] === 's') {
+      if (morseCode[i] === s) {
         await short();
-      } else if (morseCode[i] === 'l') {
+      } else if (morseCode[i] === l) {
         await long();
-      } else if (morseCode[i] === 'pause') {
+      } else if (morseCode[i] === dictPause) {
         await pause();
       }
-
       //await longOrShort[morseCode[i]]();
     }
-  };
+    setButtonDisabled(false);
+  }
 
   // render
   if (hasPermission === null) {
@@ -122,10 +116,11 @@ export default function NativeModule() {
       <ContainerFull bgColor={colors.second}>
         <Header>Native Module - Morse Messenger</Header>
         <CameraComponent flashMode={flashMode} />
-        <MorseForm buttonCallback={buttonCallback} />
+        <MorseForm
+          buttonCallback={buttonCallback}
+          buttonDisabled={buttonDisabled}
+        />
       </ContainerFull>
     );
   }
 }
-
-const styles = StyleSheet.create({});

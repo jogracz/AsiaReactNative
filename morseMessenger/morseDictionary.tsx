@@ -1,7 +1,13 @@
 //Dictionary: letters to short('s')/long('l')
-const s = 's';
-const l = 'l';
-const pause = 'pause';
+let s = 's';
+let l = 'l';
+let pause = 'pause';
+
+export enum dictOptions {
+  s = 's',
+  l = 'l',
+  pause = 'pause'
+}
 
 export const morseDictionary = {
   ' ': [pause],
