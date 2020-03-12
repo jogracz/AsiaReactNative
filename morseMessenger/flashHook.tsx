@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { DictOptions } from './morseDictionary';
 import translateToMorse from './translateToMorse';
 
