@@ -1,5 +1,5 @@
-import translateToMorse from './translateToMorse';
-import { DictOptions } from './morseDictionary';
+import translateToMorse from '../translateToMorse';
+import { DictOptions } from '../morseDictionary';
 
 const s = DictOptions.s;
 const l = DictOptions.l;
