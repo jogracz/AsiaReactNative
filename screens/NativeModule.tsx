@@ -9,14 +9,9 @@ import useFlash from '../morseMessenger/flashHook';
 
 export default function NativeModule() {
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
-  const [flashMode, buttonDisabled, startMorseForInput] = useFlash();
+  const [flashMode, startMorseForInputCallback] = useFlash();
 
-  const buttonCallback = useCallback(
-    input => {
-      startMorseForInput(input);
-    },
-    [startMorseForInput]
-  );
+  const buttonCallback = startMorseForInputCallback;
 
   // Get the permision
   useEffect(() => {
@@ -43,10 +38,7 @@ export default function NativeModule() {
       <ContainerFull bgColor={colors.second}>
         <Header>Native Module - Morse Messenger</Header>
         <CameraComponent flashMode={flashMode} />
-        <MorseForm
-          buttonCallback={buttonCallback}
-          buttonDisabled={buttonDisabled}
-        />
+        <MorseForm buttonCallback={buttonCallback} />
       </ContainerFull>
     );
   }

@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { morseDictionary, DictOptions } from './morseDictionary';
 
+const TORCH_ON = 'torch';
+const TORCH_OFF = 'off';
+const PAUSE = 1000;
+const FLASH_PAUSE = 400;
+const FLASH_SHORT = 100;
+const FLASH_LONG = 700;
+
 export default function useFlash() {
-  const TORCH_ON = 'torch';
-  const TORCH_OFF = 'off';
-  const PAUSE = 1000;
-  const FLASH_PAUSE = 400;
-  const FLASH_SHORT = 100;
-  const FLASH_LONG = 700;
   const [flashMode, setFlashMode] = useState(TORCH_OFF);
-  const [buttonDisabled, setButtonDisabled] = useState(false);
 
   function torchOffAfter(timeInMs: number) {
     return new Promise((resolve, reject) => {
@@ -27,6 +27,7 @@ export default function useFlash() {
       }, timeInMs);
     });
   }
+
   function short(): Promise<any> {
     return new Promise((resolve, reject) => {
       torchOnAfter(FLASH_PAUSE)
@@ -34,7 +35,6 @@ export default function useFlash() {
         .then(resolve);
     });
   }
-
   function long() {
     return new Promise((resolve, reject) => {
       torchOnAfter(FLASH_PAUSE)
@@ -42,7 +42,6 @@ export default function useFlash() {
         .then(resolve);
     });
   }
-
   function pause() {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -60,22 +59,21 @@ export default function useFlash() {
     return morseCode;
   }
 
-  async function startMorseForInput(sentence: string): Promise<void> {
-    setButtonDisabled(true);
-    const morseCode = translateToMorse(sentence);
-    for (let i = 0; i < morseCode.length; i++) {
-      if (morseCode[i] === DictOptions.s) {
-        await short();
-      } else if (morseCode[i] === DictOptions.l) {
-        await long();
-      } else if (morseCode[i] === DictOptions.pause) {
-        await pause();
+  const startMorseForInputCallback = useCallback(
+    async (sentence: string): Promise<void> => {
+      const morseCode = translateToMorse(sentence);
+      for (let i = 0; i < morseCode.length; i++) {
+        if (morseCode[i] === DictOptions.s) {
+          await short();
+        } else if (morseCode[i] === DictOptions.l) {
+          await long();
+        } else if (morseCode[i] === DictOptions.pause) {
+          await pause();
+        }
       }
-    }
-    setButtonDisabled(false);
-  }
+    },
+    [translateToMorse]
+  );
 
-  // useEffect(() => {},[]);
-
-  return [flashMode, buttonDisabled, startMorseForInput];
+  return [flashMode, startMorseForInputCallback];
 }
