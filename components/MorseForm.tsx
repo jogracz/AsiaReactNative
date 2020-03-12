@@ -5,10 +5,9 @@ import ButtonComponent from './ButtonComponent';
 
 interface Props {
   buttonCallback: (input: string) => void;
-  buttonDisabled: boolean;
 }
 
-export default function MorseForm({ buttonCallback, buttonDisabled }: Props) {
+export default function MorseForm({ buttonCallback }: Props) {
   const [input, setInput] = useState('');
 
   return (
@@ -20,7 +19,7 @@ export default function MorseForm({ buttonCallback, buttonDisabled }: Props) {
         bgColor={colors.extra}
         title='Send with Morse Code'
         buttonCallback={() => buttonCallback(input)}
-        buttonDisabled={buttonDisabled}
+        disableOnPress={true}
       />
     </View>
   );
