@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
-import { morseDictionary, DictOptions } from './morseDictionary';
+import { DictOptions } from './morseDictionary';
+import translateToMorse from './translateToMorse';
 
 const TORCH_ON = 'torch';
 const TORCH_OFF = 'off';
@@ -48,15 +49,6 @@ export default function useFlash() {
         resolve();
       }, PAUSE);
     });
-  }
-
-  function translateToMorse(sentence: string) {
-    const letters = sentence.toLowerCase().split('');
-    const morseCode: Array<string> = [];
-    letters.forEach((letter: string) =>
-      morseCode.push(...morseDictionary[letter], DictOptions.pause)
-    );
-    return morseCode;
   }
 
   const startMorseForInputCallback = useCallback(
